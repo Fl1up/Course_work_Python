@@ -1,0 +1,4 @@
+
+                number_card = load_dict["from"].split()[len(load_dict["from"].split()) - 1]
+                number_card = number_card[:-10] + '** **** ' + number_card[12:]
+                number_card = f'{number_card[:4]} {number_card[4:]}'
