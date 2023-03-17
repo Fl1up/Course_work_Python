@@ -4,12 +4,15 @@ def main():
         load_dict = load_json()
         for key, values in load_dict.items():
             if values == "EXECUTED":
-                load_one_dict = load_dict["operationAmount"]
-                load_two_dict = load_one_dict["currency"]
+                load_to = load_dict["to"]
+                load_dates = (load_dict["date"].split("T")[0])
 
-                print(f'{load_dict["date"]} {load_dict["description"]}\n'
-                      f'{load_dict["from"]} {load_dict["to"]}\n' 
-                      f'{load_one_dict["amount"]} {load_two_dict["name"]}\n')
+                number_card = f'{load_dict["from"].split()[len(load_dict["from"].split()) - 1]}'
+                number_card = number_card[:-10] + '** **** ' + number_card[12:]
+                number_card = f'{number_card[:4]} {number_card[4:]}'
 
+                print(f'{load_dates} {load_dict["description"]}\n'
+                      f'{number_card} -> Счет {"**" + load_to[20:]}\n'
+                      f'{load_dict["operationAmount"]["amount"]} {load_dict["operationAmount"]["currency"]["name"]}\n')
 
 main()

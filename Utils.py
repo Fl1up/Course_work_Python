@@ -6,4 +6,4 @@ def load_json():
         operations_json = json.load(file)
         random.shuffle(operations_json)
         for i in operations_json:
-            return i#operations_json
+            return i
