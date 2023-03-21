@@ -9,12 +9,14 @@ def main():
         for key, values in load_dict.items():
             if values == "EXECUTED":
                 load_to = load_dict["to"]
-                q = (f'{load_dates(load_dict)}'
+                print((f'{load_dates(load_dict)}'
                     f' {load_dict["description"]}\n'
                     f'{number_card(load_dict)} -> Счет {"**" + load_to[20:]}\n'
-                    f'{load_dict["operationAmount"]["amount"]} {load_dict["operationAmount"]["currency"]["name"]}\n')
-                print(q)
+                    f'{load_dict["operationAmount"]["amount"]} {load_dict["operationAmount"]["currency"]["name"]}\n'))
+                print(load_dates(load_dict))
 
 
 main()
 """ сортировка по дате .. убрать ошибку по фор ...сделать тесты...."""
+
+
