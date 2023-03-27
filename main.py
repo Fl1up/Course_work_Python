@@ -1,8 +1,8 @@
 import operator
-
 from Utils import load_json
 from Utils import number_card
 from Utils import load_dates
+import unittest
 
 def main():
     operations = []
@@ -19,6 +19,5 @@ def main():
                     f' {load_dict["description"]}\n'
                     f'{number_card(load_dict)} -> Счет {"**" + load_to[20:]}\n'
                     f'{load_dict["operationAmount"]["amount"]} {load_dict["operationAmount"]["currency"]["name"]}\n'))
+
 main()
-
-

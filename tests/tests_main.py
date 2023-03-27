@@ -55,3 +55,5 @@ def test_date():
     assert load_dates(a) == "12.04.2019"
     with pytest.raises(KeyError):
         load_dates({1:1})
+
+
