@@ -6,7 +6,7 @@ def load_json(fileatsh):
     """
     функция открывает json и рандомит 1 слово возвращая его
     """
-    with open(fileatsh,"r") as file:
+    with open(fileatsh, "r") as file:
         operations_json = json.load(file)
         random.shuffle(operations_json)
         for random_json in operations_json:
