@@ -23,4 +23,5 @@ def main():
                     f'{number_card(load_dict)} -> Счет {"**" + load_to[20:]}\n'
                     f'{load_dict["operationAmount"]["amount"]} {load_dict["operationAmount"]["currency"]["name"]}\n'))
 
+
 main()
