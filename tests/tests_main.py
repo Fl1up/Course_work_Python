@@ -1,22 +1,24 @@
+from Utils import load_json, load_dates, number_card
 import pytest
 
-from Utils import load_json
-from Utils import load_dates
-from Utils import number_card
-def test_read_text():
+
+def test_read_text():   # Проверяет количество символов и сравнивает и нужным результатом
     assert len(load_dates(load_json("operations.json"))) == 10
 
-def test_load_json():
+
+def test_load_json():   # Проверяет на наличие ошибки с данными результатом
     with pytest.raises(FileNotFoundError):
         load_json("random")
-    assert isinstance(load_json("operations.json"),dict)
+    assert isinstance(load_json("operations.json"), dict)
 
-def test_key():
+
+def test_key():   # Проверяет на наличие данных в словаре
     a = load_json("operations.json")
-    for key in ["id","state","date","operationAmount","description","from","to"]:
+    for key in ["id", "state", "date", "operationAmount", "description", "from", "to"]:
         assert key in a
 
-def test_number_card():
+
+def test_number_card():   # ППроверяет на наличие ошибки с данными результатом и сравниевает и нужным
     a = {
     "id": 214024827,
     "state": "EXECUTED",
@@ -34,9 +36,10 @@ def test_number_card():
   }
     assert number_card(a) == "Счет 1084 835976** **** 70775355"
     with pytest.raises(AttributeError):
-        number_card({1:1})
+        number_card({1: 1})
 
-def test_date():
+
+def test_date():  # Проверяет на наличие ошибки с данными результатом и сравниевает и нужным
     a = {
     "id": 558167602,
     "state": "EXECUTED",
@@ -54,6 +57,4 @@ def test_date():
   }
     assert load_dates(a) == "12.04.2019"
     with pytest.raises(KeyError):
-        load_dates({1:1})
-
-
+        load_dates({1: 1})
