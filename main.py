@@ -1,10 +1,8 @@
-import operator
 from Utils import load_json, number_card, load_dates
 
 
 def main():
     operations = []
-
     for _ in range(5):
         operations.append(load_json("operations.json"))
 
