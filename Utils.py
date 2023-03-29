@@ -17,9 +17,12 @@ def load_dates(load_dict):
     """
     Фильтрует дату оставляя только нужное
     """
-    load_dates = (load_dict["date"].split("T")[0])
-    load_dates_change = datetime.strptime(load_dates, '%Y-%m-%d').date().strftime('%d.%m.%Y')
-    return load_dates_change
+    if load_dict.get("date") is not None:
+        load_dates = (load_dict["date"].split("T")[0])
+        load_dates_change = datetime.strptime(load_dates, '%Y-%m-%d').date().strftime('%d.%m.%Y')
+        return load_dates_change
+    else:
+        pass
 
 
 def number_card(number):
