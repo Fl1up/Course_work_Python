@@ -7,7 +7,6 @@ def main():
 
     for _ in range(5):
         operations.append(load_json("operations.json"))
-    operations.sort(key=operator.itemgetter("date"))
 
     for operation in operations:
         load_dict = load_json("operations.json")
