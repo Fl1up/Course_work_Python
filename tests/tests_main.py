@@ -1,4 +1,4 @@
-from Utils import load_json, load_dates, number_card
+from Utils import load_json, load_dates, number_card ,file_json
 import pytest
 
 
@@ -16,44 +16,41 @@ def test_key():   # Проверяет на наличие данных в сл�
 
 
 
-
 def test_number_card():   # ППроверяет на наличие ошибки с данными результатом и сравниевает и нужным
     a = {
-    "id": 214024827,
+    "id": 863064926,
     "state": "EXECUTED",
-    "date": "2018-12-20T16:43:26.929246",
+    "date": "2019-12-08T22:46:21.935582",
     "operationAmount": {
-      "amount": "70946.18",
+      "amount": "41096.24",
       "currency": {
         "name": "USD",
         "code": "USD"
       }
     },
-    "description": "Перевод организации",
-    "from": "Счет 10848359769870775355",
-    "to": "Счет 21969751544412966366"
+    "description": "Открытие вклада",
+    "to": "Счет 90424923579946435907"
   }
-    assert number_card(a) == "Счет 1084 835976** **** 70775355"
-    #with pytest.raises(AttributeError):
-        #number_card({1: 1})
+    assert number_card(a) == "Счет 9042 492357** **** 46435907"
+    with pytest.raises(AttributeError):
+        number_card({1: 1})
 
 
 def test_date():  # Проверяет на наличие ошибки с данными результатом и сравниевает и нужным
     a = {
-    "id": 558167602,
+    "id": 801684332,
     "state": "EXECUTED",
-    "date": "2019-04-12T17:27:27.896421",
+    "date": "2019-11-05T12:04:13.781725",
     "operationAmount": {
-      "amount": "43861.89",
+      "amount": "21344.35",
       "currency": {
-        "name": "USD",
-        "code": "USD"
+        "name": "руб.",
+        "code": "RUB"
       }
     },
-    "description": "Перевод со счета на счет",
-    "from": "Счет 73654108430135874305",
-    "to": "Счет 89685546118890842412"
+    "description": "Открытие вклада",
+    "to": "Счет 77613226829885488381"
   }
-    assert load_dates(a) == "12.04.2019"
-    #with pytest.raises(KeyError):
-        #load_dates({1: 1})
+    assert load_dates(a) == "05.11.2019"
+    with pytest.raises(KeyError):
+        load_dates({1: 1})
