@@ -1,41 +1,53 @@
-import json, random, datetime
+import datetime, operator, re, json
 from datetime import datetime
 
 
-def load_json(fileatsh):
-    """
-    функция открывает json и рандомит 1 слово возвращая его
-    """
-    with open(fileatsh, "r", encoding='utf-8') as file:
-        operations_json = json.load(file)
-        random.shuffle(operations_json)
-        for random_json in operations_json:
-            return random_json
+file_json = 'operations.json'
+status = 'EXECUTED'
 
 
 def load_dates(load_dict):
     """
-    Фильтрует дату оставляя только нужное
+    Создает цикл,сплитит его фильтрует по дате и выводит его.
     """
-    if load_dict.get("date") is not None:
-        load_dates = (load_dict["date"].split("T")[0])
-        load_dates_change = datetime.strptime(load_dates, '%Y-%m-%d').date().strftime('%d.%m.%Y')
-        return load_dates_change
-    else:
-        pass
+    count = 0
+    for i in load_dict:
+        if count == 5:  # цикл 5 повторений
+            return
+        if len(i) > 0 and i['state'] == status:
+
+            split_date = i['date'].split('T')[0]
+            datetime_object = datetime.strptime(split_date, '%Y-%m-%d').date().strftime('%d.%m.%Y')
+            cost = f'{i["operationAmount"]["amount"]} {i["operationAmount"]["currency"]["name"]}'
+            print(f'{datetime_object} {i["description"]}')
+            s1 = re.sub("[^A-Za-z0-9]", "", number_card(i["to"][21:]))  #вывод правильной даты и удаление лишний символов
+            if 'открытие' in i['description'].lower():
+                print(f'{number_card(i["to"])}')
+            else:
+                print(f'{number_card(i["from"])} -> {"**" + s1}')
+            print(cost,"\n")
+
+            count += 1
 
 
-def number_card(number):
+def number_card(number: str):
     """
-    Редактирует формат номера карты и счета который нам нужен
+    Редактирует формат номера карты и счета в том форме которая нужно
     """
-    if number.get('from') is not None:
-        number_card = number.get('from').split()[len(number.get('from').split()) - 1]
-        card = number.get('from').replace(f" {number_card}", "")
-        number_card = number_card[:-10] + "** **** " + number_card[12:]
-        number_card = f"{card} {number_card[:4]} {number_card[4:]}"
-        if number_card == None:
-            pass
-        return number_card
-    else:
-        pass
+    number_type = f'{number.split()[len(number.split()) - 1]}'
+    card_type = f'{number.replace(f" {number_type}", "")}'
+    number_type = number_type[:-10] + '** **** ' + number_type[12:]  # вывод номера карты
+    number_type = f'{card_type} {number_type[:4]} {number_type[4:]}'
+    return number_type
+
+
+def load_json(file_json):
+    """
+    Функция открывает файл сортирует по дате и выводит
+    """
+    with open(file_json, 'r', encoding='UTF-8') as file:  #чтение файла и его сортировка
+        sorting_running = list(eval(file.read()))  # анализ вырадения и запуск его
+    sortint_date = [date for date in sorting_running if 'date' in date]
+    sortint_date.sort(key=operator.itemgetter('date'), reverse=True)
+    return load_dates(sortint_date)
+
